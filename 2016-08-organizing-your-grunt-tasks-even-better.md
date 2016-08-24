@@ -15,14 +15,14 @@ This is follow up of [Organizing Your Grunt Tasks](https://css-tricks.com/organi
 
 After reading it, I felt there are few more useful things about tasks and configs organization to be told.
 
-Note that this article is more for beginners or not very familiar with Grunt users. Like designers. Yes, I am talking about you, Tom. There won't be any mind blowing discoveries here for admirals of Grunt. Still, you might wish to take a glance at article, just to ensure that you did not miss anything interesting blinded by your infinite awesomeness. No one will judge you. Probably.
+Note that this article is more for beginners or not very familiar with Grunt users. Like designers. Yes, I am talking about you, Tom. There won't be any mind blowing discoveries here for admirals of Grunt. Still, one might wish to take a glance at article, just to ensure that you did not miss anything interesting blinded by your infinite awesomeness. No one will judge you. Probably.
 
 Let us begin.
 
 
 ## Loading tasks
 
-[Organizing Your Grunt Tasks](https://css-tricks.com/organizing-grunt-tasks/) already made good coverage of how you can make your life easier with `load-grunt-tasks`, so you would never need to write this again:
+[Organizing Your Grunt Tasks](https://css-tricks.com/organizing-grunt-tasks/) already made good coverage of how we can make our life easier with `load-grunt-tasks`, so we would never need to write this again:
 
 ```
 grunt.loadNpmTasks('grunt-postcss');
@@ -80,7 +80,7 @@ Note that we should pass `grunt` or `this` as parameter of `jit-grunt`.
 
 For newcomers it might unobvious what exactly happening here. `jit-grunt` or `load-grunt-tasks` just load tasks and let Grunt know that they can be used in configs. It has nothing to do with config declaration itself.
 
-In other words, you are free to choose your own ways of configs declaration and loading. You can use `load-grunt-config` with `jit-grunt`, or use `load-grunt-tasks` with technics, described below. They aren't dependent.
+In other words, you are free to choose your own ways of configs declaration and loading. Use `load-grunt-config` with `jit-grunt`, or use `load-grunt-tasks` with technics, described below. They aren't dependent.
 
 
 # Taking configs beyo... no, for now let's load configs first
@@ -89,7 +89,7 @@ Once again, [Organizing Your Grunt Tasks](https://css-tricks.com/organizing-grun
 
 The truth is, latest versions of Grunt can do same thing natively, and even better — with [grunt.task.loadTasks](http://gruntjs.com/api/grunt.task#grunt.task.loadtasks) (or it's alias [grunt.loadTasks](http://gruntjs.com/api/grunt#grunt.loadtasks)).
 
-It's very easy to use, just specify in your `gruntfile` after `grunt.initConfig` `grunt.loadTasks` with destination to your configs directory as parameter:
+It's very easy to use. We need to specify in our `gruntfile` after `grunt.initConfig` `grunt.loadTasks` with destination to configs directory as parameter:
 
 ``` js
 grunt.initConfig({
@@ -101,7 +101,7 @@ grunt.loadTasks('path/to/your/tasks')
 
 And Grunt will automatically load all `js` or `coffee` configs from specified directory.
 
-One of side effects is that you no longer need to load your configs into variable and pass them to `grunt.initconfig`, as in case with `load-grunt-configs`. Loaded by this method configs will extend already existing config with native Grunt methods.
+One of side effects is that we no longer need to load configs into variable and pass them to `grunt.initconfig`, as in case with `load-grunt-configs`. Loaded by this method configs will extend already existing config with native Grunt methods.
 
 Instead of this:
 
@@ -146,7 +146,7 @@ However, some of you might ask — "But wait, I see what you did there! You are 
 
 You are right. This is where those approaches extremely different.
 
-`load-grunt-configs` is more like a loader and merger of configs in JSON format. It always expects imported files to return JSON, no matter what. You have to manually get value of `load-grunt-configs` and then manually set this result to Grunt config, by declaring it on `grunt.initConfig(config)` or by extending already existing config via `grunt.config.merge(config)`.
+`load-grunt-configs` is more like a loader and merger of configs in JSON format. It always expects imported files to return JSON, no matter what. We have to manually get value of `load-grunt-configs` and then manually set this result to Grunt config, by declaring it on `grunt.initConfig(config)` or by extending already existing config via `grunt.config.merge(config)`.
 
 Not to say how limiting it might be. What if we need to register additional task in imported config? Or create a new one? Or make a wrapper for existing task? Or make some complex manipulations upon current instance of Grunt?
 
@@ -224,11 +224,11 @@ So, be accurate with it, do not fall of with attempts to destroy whole little wo
 
 ## Taking external configs... no-no, let's cover few pitfalls first
 
-Since `grunt.loadTasks` exposes to us whole Grunt instance in external configs and we can do with it literally whatever we want, you can only imagine how much possibilities does it brings — inside those external tasks you can do anything, that Grunt could do, and it will affect main instance of Grunt.
+Since `grunt.loadTasks` exposes to us whole Grunt instance in external configs and we can do with it literally whatever we want — inside those external configs we can do anything, that Grunt can do, and it will affect main instance of Grunt.
 
 However, before we will dive into what exactly we can do, we should clarify one important thing — how not to screw whole thing up.
 
-First of all, obvious thing — it's important to load tasks _after_ grunt config has been initialized, otherwise your operations will have nothing to change.
+First of all, obvious thing — it's important to load tasks _after_ grunt config has been initialized, otherwise our operations will have nothing to change.
 
 In other words, _wrong_:
 
@@ -261,7 +261,7 @@ module.exports = function (grunt) {
 
 Certainly, it depends on your needs and goals, and if you do not intend to change Grunt config, you can load tasks before initializing it, they will execute as expected.
 
-Second thing is order of execution of loaded tasks. It is sequential. This means, that you cannot rely inside any external config file on value, declared inside another external config file.
+Second thing is order of execution of loaded tasks. It is sequential. This means, that we cannot rely inside any external config file on value, declared inside another external config file.
 
 Let's see example:
 
@@ -315,7 +315,7 @@ Suddenly it _will_ return result, because `grunt-browser-sync` has been called b
 
 So, while it's possible to exchange values between external configs in that way, it is highly unreliable and inadvisable.
 
-Instead, you need to takes those shared values on upper level: for instance, define them in `gruntfile` under `grunt.initConfig()`, and retrieve in external configs via `grunt.config()`.
+Instead, we need to takes those shared values on upper level: for instance, define them in `gruntfile` under `grunt.initConfig()`, and retrieve in external configs via `grunt.config()`. Or implement different solution, based on your needs and environment.
 
 Nothing special. But we had to know caveats to avoid potential pitfalls. You know. Never hurts. Let's move own. To less boring parts.
 
@@ -371,7 +371,7 @@ module.exports = function (grunt) {
 
 Just choose whatever flavor you prefer.
 
-Now, you can go to your main `gruntfile` and log current config:
+Now, we can go to main `gruntfile` and log current config:
 
 ``` js
 module.exports = function (grunt) {
@@ -404,7 +404,7 @@ And our console output would be:
   }
 ```
 
-Perfect. Our config is packed up and consumed by Grunt during tasks run.
+Perfect. Config is packed up and consumed by Grunt during tasks run.
 
 
 ### Merging
@@ -539,7 +539,7 @@ module.exports = ->
 
 Now it is much easier to tell just by glancing into `tasks/stykes.coffee` that our styles have 3 related tasks. We didn't transit here all other styles related tasks, but you can go on, consider it a homework. Or not. Depends on your mood.
 
-I hope you didn’t miss `this.config.merge` usage here.
+I hope you didn't miss `this.config.merge` usage here.
 
 While `this.config` explicitly sets config value and completely _overrides_ it, `this.config.merge` will recursively merge tasks with ones, declared in previous files.
 
@@ -550,13 +550,13 @@ Quite simple, but effective way of keep related things together.
 Note, that merging is not exclusive for `grunt.loadTasks`. `load-grunt-configs` allows to do merging too, you can read about it [here](https://github.com/creynders/load-grunt-configs#split-multi-task-configurations). We've just reviewed native for Grunt method.
 
 
-### Do with your task... things
+### Doing... things
 
-Because our task files from now own stored in external files, which are simply exported functions with help of Node's `module.exports`, we can do some operations, which might be not that obvious.
+Because our config files are simply exported functions with help of Node's `module.exports`, we can do some operations, which might be not that obvious.
 
 For example, we can require any third party libs right inside our external config file and perform necessary operations.
 
-Let's say, you want to pass some Grunt data inside Sass via `node-sass` options. Quite easy:
+Let's say, we want to pass some Grunt data inside Sass via `node-sass` options. Quite easy:
 
 ``` coffee
 sass = require('node-sass')
@@ -582,7 +582,7 @@ module.exports = ->
       ]
 ```
 
-In fact, since config of task is just an Object, you can do whatever crazy things you think on it. For example, how about generating targets in loop, based on array?
+In fact, since config of task is just an Object, we can do with it whatever crazy comes into our head. For example, how about generating targets in loop, based on array?
 
 ``` coffee
 { join } = require('path')
@@ -615,9 +615,9 @@ module.exports = ->
   @config 'sass', new Task()
 ```
 
-Now we can access targets as `sass:myTarget1`,  `sass:myTarget2`. We can use it, let’s say, for i18n purposes, by dynamically generating targets based on locales, with appropriate configurations for each locale. Don't go too crazy with it, though. Do not overengineer your config.
+Now we can access targets as `sass:myTarget1`,  `sass:myTarget2`. We can use it, let's say, for i18n purposes, by dynamically generating targets based on locales, with appropriate configurations for each locale. Don't go too crazy with it, though. Do not overengineer your config.
 
-Or another example — you can create completely new tasks right inside imported files:
+Or another example — we can create completely new tasks right inside imported files:
 
 ``` coffee
 module.exports = ->
@@ -631,7 +631,7 @@ And just call for `test` task in console:
 grunt test:myArg:myArg2:myArg3
 ```
 
-You will see logged:
+We will see logged:
 
 ``` shell
 > Your nonsensical args: myArg,myArg2,myArg3
@@ -642,22 +642,24 @@ Quite nice. Now, think up your own reason to use it. Or don't. Once again, do no
 
 ## The end
 
-Before throwing yourself into endless refactoring and tinkering of you Grunt config based on this article, please, read this.
+Before throwing yourself into endless refactoring and tinkering of your Grunt config based on this article, please, read this.
 
-Yes, those technics are quite powerful and makes Grunt configs much easier to maintain, read and extend. However, you should carefully consider, does refactoring worth your time and efforts. It is something you should decide by your own.
+Yes, those technics are quite powerful and makes Grunt configs much easier to maintain, read and extend. However, you should carefully consider, does refactoring worth your time and efforts.
 
 Consider this: swapping `load-grunt-tasks` with `jit-grunt` won't make interstellar difference, using `grunt.loadTasks` with full power of `this` instead of `load-grunt-configs` won't change anything cardinally too if your configs working and you and your teammates are ok with it. Not to mention that `load-grunt-configs` can make a lot of what `grunt.loadTasks` can do too.
 
 However, if you are starting new project, I would suggest writing it in a proper way right from the beginning. Thankfully, it almost taking _less_ time to write, then traditional Grunt config.
 
-Besides, external configs are very portable. It is very easy to plug single related to task file out of one project and paste it into another.
+Besides, external configs are very portable. It is very easy to plug  related to task file out of one project and paste it into another.
 
-If you want to get live example, you can always check [Kotsu](https://github.com/LotusTM/Kotsu/tree/release/1.0.0), an Starter Web Kit and Static Website Generator, which implies described in this article technics.
+If you want to get live example, check out [Kotsu](https://github.com/LotusTM/Kotsu/tree/release/1.0.0), an Starter Web Kit and Static Website Generator, which implies described in this article technics.
 
-So, this is it. I hope you have learned something new or reminded yourself about some cool forgotten features of Grunt.
+So, this is it. I hope you have learned something new or reminded yourself about some cool forgotten features of Grunt. Don't make this article useless by saying you didn't :)
 
 Got better ideas about how to organize Grunt configs even better? Do not hesitate to share with us in comments. We will definitely patent those approaches and then sell them to you for moneys. Just kidding :)
 
 And don't be too hard on my article and don't judge me by my stupid jokes. Or judge. I don't care (please, don't, I will cry).
+
+Thanks.
 
 Live and propser Y.
