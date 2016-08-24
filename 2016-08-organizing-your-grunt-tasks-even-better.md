@@ -1,6 +1,6 @@
 ---
 author: Serj Lavrin (https://github.com/ArmorDarks)
-created: 2016-08-10T13:48:49
+created: 2016-08-10
 status: WIP
 keywords: [Grunt, Node, JavaScript, tasks, configs, organizing, refactoring]
 ---
