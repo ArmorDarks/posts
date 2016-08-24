@@ -29,14 +29,14 @@ Let us begin.
 [Organizing Your Grunt Tasks](https://css-tricks.com/organizing-grunt-tasks/) already made good coverage of how we can make our life easier with `load-grunt-tasks`, so we would never need to write this again:
 
 ```
-grunt.loadNpmTasks('grunt-postcss');
-grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.loadNpmTasks('grunt-contrib-cssmin');
-grunt.loadNpmTasks('grunt-contrib-jshint');
-grunt.loadNpmTasks('grunt-jsvalidate');
-grunt.loadNpmTasks('grunt-contrib-uglify');
-grunt.loadNpmTasks('grunt-contrib-watch');
-grunt.loadNpmTasks('grunt-contrib-sass');
+grunt.loadNpmTasks('grunt-postcss')
+grunt.loadNpmTasks('grunt-contrib-concat')
+grunt.loadNpmTasks('grunt-contrib-cssmin')
+grunt.loadNpmTasks('grunt-contrib-jshint')
+grunt.loadNpmTasks('grunt-jsvalidate')
+grunt.loadNpmTasks('grunt-contrib-uglify')
+grunt.loadNpmTasks('grunt-contrib-watch')
+grunt.loadNpmTasks('grunt-contrib-sass')
 ```
 
 However, as usually, there is always something to be improved. In this case, it would be reasonable to replace `load-grunt-tasks` with [jit-grunt](https://github.com/shootaroo/jit-grunt).
@@ -111,11 +111,11 @@ Instead of this:
 
 ``` js
 module.exports = function(grunt) {
-  var tasks = {scope: ['devDependencies', 'dependencies' ]};
-  var options = {config: { src: "grunt/*.js" }};
-  var configs = require('load-grunt-configs')(grunt, options);
-  require('load-grunt-tasks')(grunt, tasks);
-  grunt.initConfig(configs);
+  var tasks = {scope: ['devDependencies', 'dependencies' ]}
+  var options = {config: { src: "grunt/*.js" }}
+  var configs = require('load-grunt-configs')(grunt, options)
+  require('load-grunt-tasks')(grunt, tasks)
+  grunt.initConfig(configs)
   grunt.registerTask('default', ['cssmin'])
 }
 ```
@@ -344,7 +344,7 @@ module.exports = {
       'style.css': 'styles.css'
     }
   }
-};
+}
 ```
 
 In case of `grunt.loadTasks` it should be like that:
