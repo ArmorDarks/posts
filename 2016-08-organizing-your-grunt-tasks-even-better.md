@@ -5,6 +5,10 @@ status: WIP
 keywords: [Grunt, Node, JavaScript, tasks, configs, organizing, refactoring]
 ---
 
+__Todo:__
+
+- [ ] Convert all CoffeeScript examples to ES6
+- [ ] Re-check and validate all examples
 
 Organizing Your Grunt Tasks Even Better
 =======================================
