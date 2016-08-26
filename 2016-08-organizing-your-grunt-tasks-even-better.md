@@ -656,7 +656,7 @@ However, if you are starting new project, I would suggest writing it in a proper
 
 Besides, external configs are very portable. It is very easy to plug  related to task file out of one project and paste it into another.
 
-If you want to get live example, check out [Kotsu](https://github.com/LotusTM/Kotsu/tree/release/1.0.0), an Starter Web Kit and Static Website Generator, which implies described in this article technics.
+If you want to get live example, check out [Kotsu](https://github.com/LotusTM/Kotsu), a Starter Web Kit and Static Website Generator, which implies described in this article technics.
 
 So, this is it. I hope you have learned something new or reminded yourself about some cool forgotten features of Grunt. Don't make this article useless by saying you didn't :)
 
