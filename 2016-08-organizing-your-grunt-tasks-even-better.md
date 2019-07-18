@@ -6,7 +6,7 @@ keywords: [Grunt, Node, JavaScript, tasks, configs, organizing, refactoring]
 ---
 
 # Organizing Your Grunt Tasks Even Better
-**(article has changed, so this has to be changed too)** *This is a guest post by Serj Lavrin. Serj takes a look at more ways you can organize a Grunt configuration. For example, splitting up tasks by what job they do rather than strictly by what plugin they use. That way, for example, it may be easier to follow the follow of what happens to a CSS file. Serj has lots of tips, data, and example code for us here, so take it away Serj!*
+**(the article has changed, so this has to be changed too)** *This is a guest post by Serj Lavrin. Serj takes a look at more ways you can organize a Grunt configuration. For example, splitting up tasks by what job they do rather than strictly by what plugin they use. That way, for example, it may be easier to follow the follow of what happens to a CSS file. Serj has lots of tips, data, and example code for us here, so take it away Serj!*
 
 We live in an era of [Webpack](https://webpack.js.org/) and [NPM scripts](https://blog.teamtreehouse.com/use-npm-task-runner). Good or bad, they took a lead as a building and task running tools, with bits of [Rollup](https://rollupjs.org/), [JSPM](https://jspm.io/) and [Gulp](https://gulpjs.com/).
 
@@ -54,7 +54,7 @@ With `jit-grunt`:
 
 1.4s doesn't really make it a Speed Daemon... So I kinda lied. But still, it's 6 times faster than the traditional way!
 
-If you're curious how that's possible, read about [original issue](https://github.com/gruntjs/grunt/issues/975) which lead to creation of `jit-grunt`.
+If you're curious how that's possible, read about [original issue](https://github.com/gruntjs/grunt/issues/975) which lead to the creation of `jit-grunt`.
 
 So, how to use?
 
@@ -129,7 +129,7 @@ We want this:
 
 But that will force us to load each external configuration into `gruntfile.js` manually, and that takes time! We need a way to load our configuration files automatically.
 
-For that purpose people use `[load-grunt-configs](https://github.com/creynders/load-grunt-configs)`. It takes a path, grabs all configuration files there and gives us merged config object wich we use for Grunt config initialization.
+For that purpose people use `[load-grunt-configs](https://github.com/creynders/load-grunt-configs)`. It takes a path, grabs all configuration files there and gives us merged config object which we use for Grunt config initialization.
 
 Here how it works:
 
@@ -165,7 +165,7 @@ Use it like this:
       grunt.registerTask('default', ['cssmin'])
     }
 
-Grunt will automatically load all `js` or `coffee` configs from specified directory. Nice and clean!
+Grunt will automatically load all `js` or `coffee` configs from the specified directory. Nice and clean!
 
 But, if you'll try to use it, you'll notice it does nothing. How is that?
 
@@ -186,7 +186,7 @@ Let's look into our `gruntfile.js` code once again:
       grunt.registerTask('default', ['cssmin'])
     }
 
-Notice that `grunt.loadTasks` loads files from `tasks` directory, but never assigns it to our actual Grunt config.
+Notice that `grunt.loadTasks` loads files from `tasks` directory, but never assign it to our actual Grunt config.
 
 Compare it with a way `load-grunt-configs` works:
 
@@ -273,7 +273,7 @@ And change external config file `tasks/test.js`:
       grunt.log.ok(config)
     }
 
-Now, lets run Grunt again:
+Now, let’s run Grunt again:
 
 
     $ grunt
@@ -304,7 +304,7 @@ Alright, we come a long way. Our tasks are loaded automatically and faster. We l
 
 But we almost there. We learned, that in imported by `grunt.loadTasks` files we can use any Grunt instance methods. They are available on `grunt` and `this` instances.
 
-Among many, there is a precious `[grunt.config](http://gruntjs.com/api/grunt.config#grunt.config)` method. It allows to set a value in an existing Grunt config. The main one, wich we initialized in our Gruntfile, remember?
+Among many, there is a precious `[grunt.config](http://gruntjs.com/api/grunt.config#grunt.config)` method. It allows to set a value in an existing Grunt config. The main one, which we initialized in our Gruntfile, remember?
 
 But what's important, that way we also can define tasks configurations. Exactly what we needed!
 
@@ -365,9 +365,9 @@ And what we see:
         }
       }
 
-`grunt.config` setted `csso` value when imported, so CSSO task now configured and ready to run when Grunt is invoked. Perfect.
+`grunt.config` set `csso` value when imported, so CSSO task now configured and ready to run when Grunt is invoked. Perfect.
 
-Note that if you used `load-grunt-configs` previsuly, you had code like that, where each file exports an configuration object:
+Note that if you used `load-grunt-configs` previously, you had a code like that, where each file exports a configuration object:
 
 
     // tasks/grunt-csso.js
@@ -431,7 +431,7 @@ By that time you probably externalized all your tasks configuration. So, Grunt c
 
 That keeps Gruntfile relatively small and things seem to be well organized. But do you get a clear picture of the project just by glancing into this cold and lifeless list of tasks? What actually do they do? What's the flow?
 
-Can you tell that Sass files going through `grunt-sass`, then `grunt-postcss:autoprefixer`, then `grunt-uncss`, and finally through `grunt-csso`? Is it obvious that the `clean` task is cleaning it, `grunt-spritesmith` is generating a Sass file which should be picked up too, and `grunt-watch` watches over all changes?
+Can you tell that Sass files going through `grunt-sass`, then `grunt-postcss:autoprefixer`, then `grunt-uncss`, and finally through `grunt-csso`? Is it obvious that the `clean` task is cleaning it, `grunt-spritesmith` is generating a Sass file which should be picked up too, and `grunt-watch` watches over changes?
 
 Seems like things all over the place. Like we have gone too far with externalization!
 
@@ -456,7 +456,7 @@ That tells me a story! But how could we do that?
 
 We already learned about `grunt.config`. And believe it or not, you can use it multiple time in a single external file to configure multiple tasks at once!
 
-Lets see how it works:
+Let’s see how it works:
 
 
     // tasks/styles.js
@@ -490,11 +490,11 @@ How to deal with tasks such as `grunt-contrib-watch`? Its configuration is a who
       })
     }
 
-We can't simply use `grunt.config` to set `watch` configuration in each file, as it will override same `watch` configuration in already imported files. And leaving it in a standalone file sounds like a bad option too — after all, we wanted to keep all related things close.
+We can't simply use `grunt.config` to set `watch` configuration in each file, as it will override the same `watch` configuration in already imported files. And leaving it in a standalone file sounds like a bad option too — after all, we wanted to keep all related things close.
 
 Fret not! `[grunt.config.merge](https://gruntjs.com/api/grunt.config#grunt.config.merge)` to the rescue!
 
-While `grunt.config` explicitly sets and *overrides* any existing values in Grunt config, `grunt.config.merge` recursively merges value with already existing Grunt config. And so we get single Grunt config. Simple, but effective way to keep related things together.
+While `grunt.config` explicitly sets and *overrides* any existing values in Grunt config, `grunt.config.merge` recursively merges value with already existing Grunt config. And so we get single Grunt config. A simple, but effective way to keep related things together.
 
 An example:
 
@@ -520,7 +520,7 @@ An example:
       })
     }
 
-Will produce single Grunt config:
+Will produce a single Grunt config:
 
 
     {
@@ -629,15 +629,15 @@ And that's it! The whole point of what we learned. Now you can give me my bear b
 
 ## Conclusion
 
-Grunt is no longer that fresh and bright. But till the date it is straightforward and reliable tool that does it job well and with proper treatment gives even less reasons to swap it for something newer. 
+Grunt is no longer that fresh and bright. But to date it is a straightforward and reliable tool that does its job well and with proper treatment gives even fewer reasons to swap it for something newer. 
 
 Let's recap what you can do to help it:
 
 
-1. For tasks loading use `[jit-grunt](https://github.com/shootaroo/jit-grunt)` instead of `[load-grunt-tasks](https://github.com/sindresorhus/load-grunt-tasks)`. It's same, but insanely faster.
+1. For tasks loading use `[jit-grunt](https://github.com/shootaroo/jit-grunt)` instead of `[load-grunt-tasks](https://github.com/sindresorhus/load-grunt-tasks)`. It's same but insanely faster.
 2. Move specific tasks configs from Gruntfile into external config files to keep things organized.
 3. Use native `[grunt.task.loadTasks](http://gruntjs.com/api/grunt.task#grunt.task.loadtasks)` to load external config files. It's simple but powerful as it exposes all Grunt capabilities.
-4. Finally, think about better way to organize you config files! Group them by feature or domain instead of the task itself. Use `[grunt.config.merge](https://gruntjs.com/api/grunt.config#grunt.config.merge)` to split complex tasks like `watch`.
+4. Finally, think about a better way to organize your config files! Group them by feature or domain instead of the task itself. Use `[grunt.config.merge](https://gruntjs.com/api/grunt.config#grunt.config.merge)` to split complex tasks like `watch`.
 
 And for sure, check [Grunt documentation](https://gruntjs.com/getting-started). After all those years it still worth a read.
 
